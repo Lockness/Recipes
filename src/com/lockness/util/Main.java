@@ -25,6 +25,9 @@ public class Main {
 
 	}
 
+	public static void blah(){
+		
+	}
 	
 	public static void initializeProgram(){
 		File recipeFolder = new File("Recipe");
