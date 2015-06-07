@@ -1,5 +1,4 @@
 package com.lockness.kitchen;
-import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Recipe {
@@ -37,7 +36,7 @@ public class Recipe {
 		this(name, null, -1, -1, -1, -1);
 	}
 
-	Recipe(String name, String description, int servingSize, int prep, int cook, int ready) {
+	public Recipe(String name, String description, int servingSize, int prep, int cook, int ready) {
 		this.name = name;
 		this.description = description;
 		this.servingSize = servingSize;
@@ -118,7 +117,7 @@ public class Recipe {
 	
 	void editIngredientQuantity(String name, int newQuantity) {
 		Ingredient ingredient = this.ingredients.remove(name);
-		ingredient.quantity = newQuantity;
+		ingredient.setQuantity(newQuantity);
 		this.ingredients.put(name, ingredient);
 	}
 

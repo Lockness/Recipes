@@ -2,9 +2,9 @@ package com.lockness.kitchen;
 
 public class Ingredient {
 
-	String name;
-	int quantity;
-	String unit;
+	private String name;
+	private int quantity;
+	private String unit;
 	
 	public Ingredient(String name, int quantity, String unit) {
 		this.name = name;
