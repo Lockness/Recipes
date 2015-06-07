@@ -21,6 +21,9 @@ public class Main {
 		// TODO Auto-generated method stub
 		initializeProgram();
 		System.out.println(cookbook.toString());
+		for(int i = 0; i < 10; i++) {
+			
+		}
 
 	}
 
