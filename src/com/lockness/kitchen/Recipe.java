@@ -1,6 +1,6 @@
 package com.lockness.kitchen;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Recipe {
 
@@ -34,16 +34,17 @@ public class Recipe {
 	 */
 
 	Recipe(String name) {
-		this(name, null, -1, -1, -1, -1, null);
+		this(name, null, -1, -1, -1, -1);
 	}
 
-	Recipe(String name, String description, int servingSize, int prep, int cook, int ready, Ingredient ingredients) {
+	Recipe(String name, String description, int servingSize, int prep, int cook, int ready) {
 		this.name = name;
 		this.description = description;
 		this.servingSize = servingSize;
 		this.time[0] = prep;
 		this.time[1] = cook;
 		this.time[2] = ready;
+		this.ingredients = new ArrayList<Ingredient>();
 	}
 
 	/**
@@ -98,12 +99,13 @@ public class Recipe {
 		this.time[2] = ready;
 	}
 
-	void addIngredient(String ingredient, String quantity) {
-		this.ingredients.put(ingredient, quantity);
+	void addIngredient(String name, int quantity, String unit) {
+		Ingredient ingredient = new Ingredient(name, quantity, unit);
+		this.ingredients.add(ingredient);
 	}
 
-	boolean containsIngredient(String ingredient) {
-		return this.ingredients.containsKey(ingredient);
+	boolean containsIngredient(Ingredient ingredient) {
+		return this.ingredients.contains(ingredient);
 	}
 
 	/**
@@ -115,7 +117,7 @@ public class Recipe {
 	}
 	
 	void editIngredientQuantity(String name, String newQuantity) {
-		this.ingredients.put(name, newQuantity);
+		Ingredient ingredient = this.ingredients.remove()
 	}
 
 }
