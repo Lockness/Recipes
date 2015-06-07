@@ -1,5 +1,7 @@
 package com.lockness.kitchen;
 
+import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 public class Cookbook {
@@ -53,7 +55,7 @@ public class Cookbook {
 	}
 
 	/**
-	 * Reports the recipe associated with {@code name} in {@code this}.
+	 * Reports the specific recipe associated with {@code name} in {@code this}.
 	 *
 	 * @param name
 	 * 				the name whose associated recipe is to be reported
@@ -63,5 +65,47 @@ public class Cookbook {
 	 */
 	public Recipe seeRecipe(String name){
 		return this.recipeList.get(name);
+	}
+	
+	/**
+	 * Searches for all recipes that contain {@code name}.
+	 * 
+	 * @param name
+	 * 				the name to be searched for in the cookbook
+	 * @return a list of recipes containing {@code name}
+	 * @ensures 
+	 * 		if Cookbook contains any recipes with part of the searched {@code name},
+	 * 		then it will return a list of all the recipes which match the above criteria
+	 * 
+	 * 		if Cookbook does not contain a recipe who's name contains {@code name},
+	 * 		then it will return a list with an empty recipe who's title is "No matches found."
+	 * 
+	 */
+	public List<Recipe> searchRecipe(String name){
+		// List of search results to be returned
+		List<Recipe> searchResults = null;
+		// Iterates through recipeList entries one by one
+		for (Map.Entry<String, Recipe> recipe : this.recipeList.entrySet()) {
+			// If the key contains or is equal to the "name" being searched
+			// Add it to the list of search results
+			if (recipe.getKey().contains(name) | recipe.getKey().equals(name)) {
+				searchResults.add(recipe.getValue());
+			}
+		}
+		
+		//TODO - Idk if the if statement below is necessary, because we could just say
+		// in main that if searchResults returns empty then display a message to the 
+		// user to say that there were no matches.
+		
+		
+		// In case of no matches, this adds a recipe with title "No matches found."
+		// so that it can be displayed to the user
+		if (searchResults.isEmpty()) {
+			Recipe nameNotFound = null;
+			nameNotFound.name = "No matches found.";
+			searchResults.add(nameNotFound);
+		}
+		// Returns list of recipes containing the search name
+		return searchResults;
 	}
 }

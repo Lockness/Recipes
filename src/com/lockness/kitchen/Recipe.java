@@ -114,7 +114,7 @@ public class Recipe {
 	}
 	
 	void editIngredientQuantity(String name, String newQuantity) {
-		this.ingredients.replace(name, newQuantity);
+		this.ingredients.put(name, newQuantity);
 	}
 
 }
