@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * @author Justin Carruthers
+ * @author Ryan Tomlinson
+ */
 public class Cookbook {
 
 	/**
@@ -34,8 +38,8 @@ public class Cookbook {
 	 * @requires name is not in DOMAIN(this)
 	 * @ensures this = #this union {(name, recipe)}
 	 */
-	public void addRecipe(String name, String description, int servingSize, int prep, int cook, int ready){
-		Recipe newRecipe = new Recipe(name, description, servingSize, prep, cook, ready); 
+	public void addRecipe(String name, String description, int servingSize, int prep, int cook, int ready, String instructions){
+		Recipe newRecipe = new Recipe(name, description, servingSize, prep, cook, ready, instructions); 
 		this.recipeList.put(name, newRecipe);
 	}
 

@@ -1,6 +1,10 @@
 package com.lockness.kitchen;
 import java.util.TreeMap;
 
+/**
+ * @author Justin Carruthers
+ * @author Ryan Tomlinson
+ */
 public class Recipe {
 
 	/**
@@ -27,16 +31,21 @@ public class Recipe {
 	 * An array at which time[0] = preparation time, time[1] = cooking time, time[2] = total time before ready
 	 */
 	int time[];
+	
+	/**
+	 * The detailed instructions on how to make the given recipe.
+	 */
+	String instructions;
 
 	/**
 	 * Constructors
 	 */
 
 	Recipe(String name) {
-		this(name, null, -1, -1, -1, -1);
+		this(name, null, -1, -1, -1, -1, null);
 	}
 
-	public Recipe(String name, String description, int servingSize, int prep, int cook, int ready) {
+	public Recipe(String name, String description, int servingSize, int prep, int cook, int ready, String instructions) {
 		this.name = name;
 		this.description = description;
 		this.servingSize = servingSize;
@@ -44,6 +53,7 @@ public class Recipe {
 		this.time[1] = cook;
 		this.time[2] = ready;
 		this.ingredients = new TreeMap<String, Ingredient>();
+		this.instructions = instructions;
 	}
 
 	/**
@@ -98,6 +108,14 @@ public class Recipe {
 		this.time[2] = ready;
 	}
 
+	String getInstructions() {
+		return instructions;
+	}
+
+	void replaceInstructions(String instructions) {
+		this.instructions = instructions;
+	}
+	
 	void addIngredient(String name, int quantity, String unit) {
 		Ingredient ingredient = new Ingredient(name, quantity, unit);
 		this.ingredients.put(name, ingredient);

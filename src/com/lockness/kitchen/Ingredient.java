@@ -1,5 +1,9 @@
 package com.lockness.kitchen;
 
+/**
+ * @author Justin Carruthers
+ * @author Ryan Tomlinson
+ */
 public class Ingredient {
 
 	private String name;
