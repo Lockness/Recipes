@@ -1,4 +1,5 @@
 package com.lockness.kitchen;
+import java.util.List;
 import java.util.Map;
 
 public class Recipe {
@@ -14,9 +15,9 @@ public class Recipe {
 	String description;
 
 	/**
-	 * A map where the keys are the ingredients and the values are the quantities.
+	 * A list of Ingredient Objects that contain the ingredient and it's quantity
 	 */
-	Map<String, String> ingredients;
+	List<Ingredient> ingredients;
 
 	/**
 	 * The serving size that the given recipe creates.
@@ -33,10 +34,10 @@ public class Recipe {
 	 */
 
 	Recipe(String name) {
-		this(name, null, -1, -1, -1, -1);
+		this(name, null, -1, -1, -1, -1, null);
 	}
 
-	Recipe(String name, String description, int servingSize, int prep, int cook, int ready) {
+	Recipe(String name, String description, int servingSize, int prep, int cook, int ready, Ingredient ingredients) {
 		this.name = name;
 		this.description = description;
 		this.servingSize = servingSize;
