@@ -16,15 +16,51 @@ public class Cookbook {
 		this.recipeList = null;
 	}
 	
+	//---------------------------------------//
+	//---------Methods for Cookbook----------//
+	//---------------------------------------//
+	
 	/**
-	 * Adds a recipe to the cookbook.
+	 * Adds the {@code recipe} with the title {@code name}.
+	 * 
 	 * @param name
-	 * 	The name of the recipe
+	 * 				the name of the recipe to be added
 	 * @param recipe
-	 * 	The complete recipe itself
+	 * 				the recipe to be added
+	 * @updates this
+	 * @requires name is not in DOMAIN(this)
+	 * @ensures this = #this union {(name, recipe)}
 	 */
-	public void addRecipe(String name, String description, int servingSize, int prep, int cook, int ready){
-                Recipe newRecipe = new Recipe(name, description, servingSize, prep, cook, ready); 
-		this.recipeList.put(name, newRecipe);
+	public void addRecipe(String name, Recipe recipe){
+		this.recipeList.put(name, recipe);
+	}
+	
+	/**
+	 * Removes the recipe who's title is {@code  name} and returns it.
+	 * 
+	 * @param name
+	 * 	The name of the recipe to be returned
+	 * @return the recipe to be removed
+	 * @requires name is in DOMAIN({@code this}
+	 * @ensures
+	 * remove.name = name and
+	 * remove is in #this and
+	 * this = #this \ {remove}
+	 */
+	public Recipe removeRecipe(String name){
+		return this.recipeList.remove(name);	
+	}
+	
+	/**
+	 * Reports the recipe associated with {@code name} in {@code this}.
+	 *
+	 * @param name
+	 * 				the name whose associated recipe is to be reported
+	 * @return the recipe associated with {@code name}
+	 * @requires {@code name } is in DOMAIN(this)
+	 * 
+	 */
+	public Recipe seeRecipe(String name){
+		return this.recipeList.get(name);
 	}
 }
