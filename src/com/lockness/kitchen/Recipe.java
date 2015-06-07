@@ -1,4 +1,5 @@
 package com.lockness.kitchen;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -49,6 +50,7 @@ public class Recipe {
 		this.name = name;
 		this.description = description;
 		this.servingSize = servingSize;
+		this.time = new int[3];
 		this.time[0] = prep;
 		this.time[1] = cook;
 		this.time[2] = ready;
@@ -121,6 +123,10 @@ public class Recipe {
 		this.ingredients.put(name, ingredient);
 	}
 
+	public void addIngredientSet(TreeMap<String, Ingredient> ingredientList){
+		this.ingredients = ingredientList;
+	}
+	
 	boolean containsIngredient(String name) {
 		return this.ingredients.containsKey(name);
 	}
@@ -137,6 +143,18 @@ public class Recipe {
 		Ingredient ingredient = this.ingredients.remove(name);
 		ingredient.setQuantity(newQuantity);
 		this.ingredients.put(name, ingredient);
+	}
+	
+	@Override
+	public String toString() {
+		String returnMe = name + '\n' + "---------" + '\n' + description + '\n';
+		returnMe = returnMe + "Serves " + servingSize + " people." + '\n' + "Ready in " + time[2] + '\n';
+		String ingredAsString = "";
+		for (Map.Entry<String, Ingredient> ingred : this.ingredients.entrySet()) {
+			ingredAsString = ingredAsString + ingred.getValue().toString() + '\n';
+		}
+		returnMe = returnMe + ingredAsString + instructions;
+		return returnMe;
 	}
 
 }
