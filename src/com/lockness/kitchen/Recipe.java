@@ -1,6 +1,6 @@
 package com.lockness.kitchen;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.TreeMap;
 
 public class Recipe {
 
@@ -17,7 +17,7 @@ public class Recipe {
 	/**
 	 * A list of Ingredient Objects that contain the ingredient and it's quantity
 	 */
-	List<Ingredient> ingredients;
+	TreeMap<String, Ingredient> ingredients;
 
 	/**
 	 * The serving size that the given recipe creates.
@@ -44,7 +44,7 @@ public class Recipe {
 		this.time[0] = prep;
 		this.time[1] = cook;
 		this.time[2] = ready;
-		this.ingredients = new ArrayList<Ingredient>();
+		this.ingredients = new TreeMap<String, Ingredient>();
 	}
 
 	/**
@@ -101,11 +101,11 @@ public class Recipe {
 
 	void addIngredient(String name, int quantity, String unit) {
 		Ingredient ingredient = new Ingredient(name, quantity, unit);
-		this.ingredients.add(ingredient);
+		this.ingredients.put(name, ingredient);
 	}
 
-	boolean containsIngredient(Ingredient ingredient) {
-		return this.ingredients.contains(ingredient);
+	boolean containsIngredient(String name) {
+		return this.ingredients.containsKey(name);
 	}
 
 	/**
@@ -116,8 +116,10 @@ public class Recipe {
 		return this.ingredients.size();
 	}
 	
-	void editIngredientQuantity(String name, String newQuantity) {
-		Ingredient ingredient = this.ingredients.remove()
+	void editIngredientQuantity(String name, int newQuantity) {
+		Ingredient ingredient = this.ingredients.remove(name);
+		ingredient.quantity = newQuantity;
+		this.ingredients.put(name, ingredient);
 	}
 
 }
