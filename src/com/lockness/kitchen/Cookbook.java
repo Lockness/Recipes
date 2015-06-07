@@ -23,7 +23,8 @@ public class Cookbook {
 	 * @param recipe
 	 * 	The complete recipe itself
 	 */
-	public void addRecipe(String name, Recipe recipe){
-		this.recipeList.put(name, recipe);
+	public void addRecipe(String name, String description, int servingSize, int prep, int cook, int ready){
+                Recipe newRecipe = new Recipe(name, description, servingSize, prep, cook, ready); 
+		this.recipeList.put(name, newRecipe);
 	}
 }
