@@ -37,4 +37,8 @@ public class Main {
 		}
 	}
 	
+	public static void testFunc(String test) {
+		
+	}
+	
 }
