@@ -15,11 +15,11 @@ public class Cookbook {
 	public Cookbook(){
 		this.recipeList = null;
 	}
-	
+
 	//---------------------------------------//
 	//---------Methods for Cookbook----------//
 	//---------------------------------------//
-	
+
 	/**
 	 * Adds the {@code recipe} with the title {@code name}.
 	 * 
@@ -31,10 +31,11 @@ public class Cookbook {
 	 * @requires name is not in DOMAIN(this)
 	 * @ensures this = #this union {(name, recipe)}
 	 */
-	public void addRecipe(String name, Recipe recipe){
-		this.recipeList.put(name, recipe);
+	public void addRecipe(String name, String description, int servingSize, int prep, int cook, int ready){
+		Recipe newRecipe = new Recipe(name, description, servingSize, prep, cook, ready); 
+		this.recipeList.put(name, newRecipe);
 	}
-	
+
 	/**
 	 * Removes the recipe who's title is {@code  name} and returns it.
 	 * 
@@ -50,7 +51,7 @@ public class Cookbook {
 	public Recipe removeRecipe(String name){
 		return this.recipeList.remove(name);	
 	}
-	
+
 	/**
 	 * Reports the recipe associated with {@code name} in {@code this}.
 	 *
