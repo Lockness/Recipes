@@ -175,7 +175,7 @@
 
    END OF TERMS AND CONDITIONS
 
-   Copyright 2015, Lockness owned by Ryan Tomlinson and Justin Carruthers
+   Copyright 2015, Lockness
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
