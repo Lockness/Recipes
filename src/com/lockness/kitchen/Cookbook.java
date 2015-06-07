@@ -16,7 +16,7 @@ public class Cookbook {
 	 * No-argument constructor.
 	 */
 	public Cookbook(){
-		this.recipeList = null;
+		this.recipeList = new TreeMap<String, Recipe>();
 	}
 
 	//---------------------------------------//
@@ -89,23 +89,11 @@ public class Cookbook {
 		for (Map.Entry<String, Recipe> recipe : this.recipeList.entrySet()) {
 			// If the key contains or is equal to the "name" being searched
 			// Add it to the list of search results
-			if (recipe.getKey().contains(name) | recipe.getKey().equals(name)) {
+			if (recipe.getKey().contains(name) | recipe.getKey().equalsIgnoreCase(name)) {
 				searchResults.add(recipe.getValue());
 			}
-		}
+		}		
 		
-		//TODO - Idk if the if statement below is necessary, because we could just say
-		// in main that if searchResults returns empty then display a message to the 
-		// user to say that there were no matches.
-		
-		
-		// In case of no matches, this adds a recipe with title "No matches found."
-		// so that it can be displayed to the user
-		if (searchResults.isEmpty()) {
-			Recipe nameNotFound = null;
-			nameNotFound.name = "No matches found.";
-			searchResults.add(nameNotFound);
-		}
 		// Returns list of recipes containing the search name
 		return searchResults;
 	}
