@@ -42,6 +42,11 @@ public class Cookbook {
 		Recipe newRecipe = new Recipe(name, description, servingSize, prep, cook, ready, instructions); 
 		this.recipeList.put(name, newRecipe);
 	}
+	
+	
+	public void addRecipe(Recipe recipe){
+		this.recipeList.put(recipe.getName(), recipe);
+	}
 
 	/**
 	 * Removes the recipe who's title is {@code  name} and returns it.
