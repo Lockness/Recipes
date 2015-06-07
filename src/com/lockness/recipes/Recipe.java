@@ -2,7 +2,11 @@ package com.lockness.recipes;
 
 public class Recipe {
 	
-	public String name;
+	public String name2;
 	
-	//Add ingredients.  
+	//Add ingredients. 
+	
+	
+	
+	//TEST comment. 
 }
