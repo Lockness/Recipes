@@ -3,17 +3,38 @@ import java.util.Map;
 
 public class Recipe {
 	
-	
+	/**
+	 * Name of the recipe.
+	 */
 	String name;
+	
+	/**
+	 * Brief description of the recipe.
+	 */
 	String description;
+	
+	/**
+	 * A map where the keys are the ingredients and the values are the quantities.
+	 */
 	Map<String, String> ingredients;
+	
+	/**
+	 * The serving size that the given recipe creates.
+	 */
 	int servingSize; 
+	
+	/**
+	 * An array at which time[0] = preparation time, time[1] = cooking time, time[2] = total time before ready
+	 */
 	int time[];
 	
 	/**
 	 * Constructors
 	 */
 	
+	/**
+	 * No-argument constructor
+	 */
 	public Recipe() {
 		this(null, null, -1, -1, -1, -1);
 	}
