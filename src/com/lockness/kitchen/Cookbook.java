@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * @author Justin Carruthers
+ * @author Ryan Tomlinson
+ */
 public class Cookbook {
 
 	/**

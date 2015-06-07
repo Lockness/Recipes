@@ -1,6 +1,10 @@
 package com.lockness.kitchen;
 import java.util.TreeMap;
 
+/**
+ * @author Justin Carruthers
+ * @author Ryan Tomlinson
+ */
 public class Recipe {
 
 	/**

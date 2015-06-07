@@ -1,5 +1,9 @@
 package com.lockness.util;
 
+/**
+ * @author Justin Carruthers
+ * @author Ryan Tomlinson
+ */
 public class Main {
 
 	private Main() {
