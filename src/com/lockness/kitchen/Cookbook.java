@@ -1,5 +1,6 @@
 package com.lockness.kitchen;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -83,7 +84,7 @@ public class Cookbook {
 	 */
 	public List<Recipe> searchRecipe(String name){
 		// List of search results to be returned
-		List<Recipe> searchResults = null;
+		List<Recipe> searchResults = new ArrayList<Recipe>();
 		// Iterates through recipeList entries one by one
 		for (Map.Entry<String, Recipe> recipe : this.recipeList.entrySet()) {
 			// If the key contains or is equal to the "name" being searched
