@@ -32,27 +32,8 @@ public class Recipe {
 	 * Constructors
 	 */
 	
-	/**
-	 * No-argument constructor
-	 */
-	public Recipe() {
-		this(null, null, -1, -1, -1, -1);
-	}
-	
 	public Recipe(String name) {
 		this(name, null, -1, -1, -1, -1);
-	}
-	
-	public Recipe(String name, String description) {
-		this(name, description, -1, -1, -1, -1);
-	}
-	
-	public Recipe(String name, String description, int ready) {
-		this(name, description, -1, -1, -1, ready);
-	}
-	
-	public Recipe(String name, String description, int servingSize, int ready) {
-		this(name, description, servingSize, -1, -1, ready);
 	}
 	
 	public Recipe(String name, String description, int servingSize, int prep, int cook, int ready) {
@@ -72,7 +53,7 @@ public class Recipe {
 		return name;
 	}
 	
-	public void setName(String name) {
+	public void rename (String name) {
 		this.name = name;
 	}
 	
@@ -80,7 +61,7 @@ public class Recipe {
 		return description;
 	}
 	
-	public void setDescription(String description) {
+	public void replaceDescription(String description) {
 		this.description = description;
 	}
 	
@@ -88,7 +69,7 @@ public class Recipe {
 		return servingSize;
 	}
 	
-	public void setServingSize(int servingSize) {
+	public void updateServingSize(int servingSize) {
 		this.servingSize = servingSize;
 	}
 	
@@ -96,7 +77,7 @@ public class Recipe {
 		return time[0];
 	}
 	
-	public void setPrepTime(int prep) {
+	public void updatePrepTime(int prep) {
 		this.time[0] = prep;
 	}
 	
@@ -104,7 +85,7 @@ public class Recipe {
 		return time[1];
 	}
 	
-	public void setCookTime(int cook) {
+	public void updateCookTime(int cook) {
 		this.time[1] = cook;
 	}
 	
@@ -112,7 +93,7 @@ public class Recipe {
 		return time[2];
 	}
 	
-	public void setReadyTime(int ready) {
+	public void updateReadyTime(int ready) {
 		this.time[2] = ready;
 	}
 	
