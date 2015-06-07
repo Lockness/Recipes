@@ -40,5 +40,10 @@ public class Ingredient {
 		this.unit = unit;
 	}
 	
+	@Override
+	public String toString(){
+		String returnMe = this.name + " " + this.quantity + " " + this.unit;
+		return returnMe;
+	}
 	
 }
