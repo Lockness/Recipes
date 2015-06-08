@@ -21,8 +21,6 @@ public class Main {
 		// TODO Auto-generated method stub
 		initializeProgram();
 		System.out.println(cookbook.toString());
-		System.out.println("test");
-
 	}
 
 	public static void blah(){
@@ -38,6 +36,7 @@ public class Main {
 			Recipe recipe = InputParser.parseRCP(listOfRecipes[i].getName());
 			cookbook.addRecipe(recipe);
 		}
+		
 	}
 	
 	public static void testFunc(String test) {

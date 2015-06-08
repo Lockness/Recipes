@@ -107,6 +107,10 @@ public class Cookbook {
 		return searchResults;
 	}
 	
+	public int numberOfRecipes() {
+		return this.recipeList.size();
+	}
+	
 	@Override
 	public String toString() {
 		
