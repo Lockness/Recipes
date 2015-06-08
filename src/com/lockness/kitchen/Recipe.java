@@ -147,7 +147,13 @@ public class Recipe {
 	
 	@Override
 	public String toString() {
-		String returnMe = name + '\n' + "---------" + '\n' + description + '\n';
+		
+		String underline = "";
+		for(int i = 0; i < name.length(); i++) {
+			underline += '-';
+		}
+		
+		String returnMe = name + '\n' + underline + '\n' + description + '\n';
 		returnMe = returnMe + "Serves " + servingSize + " people." + '\n' + "Ready in " + time[2] + '\n';
 		String ingredAsString = "";
 		for (Map.Entry<String, Ingredient> ingred : this.ingredients.entrySet()) {
