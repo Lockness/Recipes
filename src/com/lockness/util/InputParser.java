@@ -31,7 +31,8 @@ public class InputParser {
 	 */
 	public static Recipe parseRCP(String filename) {
 		String name = "", description = "", ingredientName = "", ingredientUnit = "", instruction = "", currentLine;
-		int servingSize = -1, time[] = new int[3], ingredientQuantity = -1;
+		int servingSize = -1, time[] = new int[3];
+		float ingredientQuantity = 0.00f;
 		TreeMap<String, Ingredient> ingredients = new TreeMap<String, Ingredient>();
 		File file = new File("Recipe/" + filename);
 		Scanner input;
@@ -66,7 +67,7 @@ public class InputParser {
 					break;
 				case '5':
 					currentLine = currentLine.substring(2);
-					ingredientQuantity = Integer.parseInt(currentLine);
+					ingredientQuantity = Float.parseFloat(currentLine);
 					break;
 				case '6':
 					ingredientUnit = currentLine.substring(2);
@@ -83,7 +84,7 @@ public class InputParser {
 			}
 
 			Recipe newRecipe = new Recipe(name, description, servingSize, time[0], time[1], time[2], instruction);
-			newRecipe.addIngredientSet(ingredients);
+			newRecipe.replaceIngredientSet(ingredients);
 
 			input.close();
 			return newRecipe;

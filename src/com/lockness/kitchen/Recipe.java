@@ -118,12 +118,12 @@ public class Recipe {
 		this.instructions = instructions;
 	}
 	
-	void addIngredient(String name, int quantity, String unit) {
+	void addIngredient(String name, float quantity, String unit) {
 		Ingredient ingredient = new Ingredient(name, quantity, unit);
 		this.ingredients.put(name, ingredient);
 	}
 
-	public void addIngredientSet(TreeMap<String, Ingredient> ingredientList){
+	public void replaceIngredientSet(TreeMap<String, Ingredient> ingredientList){
 		this.ingredients = ingredientList;
 	}
 	
@@ -139,7 +139,7 @@ public class Recipe {
 		return this.ingredients.size();
 	}
 	
-	void editIngredientQuantity(String name, int newQuantity) {
+	void editIngredientQuantity(String name, float newQuantity) {
 		Ingredient ingredient = this.ingredients.remove(name);
 		ingredient.setQuantity(newQuantity);
 		this.ingredients.put(name, ingredient);

@@ -7,10 +7,10 @@ package com.lockness.kitchen;
 public class Ingredient {
 
 	private String name;
-	private int quantity;
+	private float quantity;
 	private String unit;
 	
-	public Ingredient(String name, int quantity, String unit) {
+	public Ingredient(String name, float quantity, String unit) {
 		this.name = name;
 		this.quantity = quantity;
 		this.unit = unit;
@@ -24,11 +24,11 @@ public class Ingredient {
 		this.name = name;
 	}
 
-	public int getQuantity() {
+	public float getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(float quantity) {
 		this.quantity = quantity;
 	}
 

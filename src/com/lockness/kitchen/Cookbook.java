@@ -106,19 +106,24 @@ public class Cookbook {
 		// Returns list of recipes containing the search name
 		return searchResults;
 	}
-	
+
+        /**
+         * Reports the number of Recipes are in the Cookbook.
+         *
+         */
 	public int numberOfRecipes() {
 		return this.recipeList.size();
 	}
 	
 	@Override
 	public String toString() {
-		
 		String returnMe = "";
+
 		for (Map.Entry<String, Recipe> recipe : this.recipeList.entrySet()) {
 			returnMe = returnMe + recipe.getValue().toString() + '\n' + '\n' + '\n';
 		}
 		
 		return returnMe;
 	}
+
 }
