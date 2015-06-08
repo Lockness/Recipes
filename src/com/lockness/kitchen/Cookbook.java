@@ -98,7 +98,8 @@ public class Cookbook {
 		for (Map.Entry<String, Recipe> recipe : this.recipeList.entrySet()) {
 			// If the key contains or is equal to the "name" being searched
 			// Add it to the list of search results
-			if (recipe.getKey().contains(name) | recipe.getKey().equalsIgnoreCase(name)) {
+			System.out.println(recipe.getKey());
+			if (recipe.getKey().toLowerCase().contains(name.toLowerCase()) || recipe.getKey().equalsIgnoreCase(name)) {
 				searchResults.add(recipe.getValue());
 			}
 		}		

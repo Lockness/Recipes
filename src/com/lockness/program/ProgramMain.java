@@ -53,7 +53,7 @@ public class ProgramMain {
 				String keyword = scanner.nextLine();
 				List<Recipe> foundRecipes = cookbook.searchRecipe(keyword);
 
-				System.out.println("0 - Exit");
+				System.out.println("0 - Back");
 				for (int i = 0; i < foundRecipes.size(); i++) {
 					System.out.println((i + 1) + " - " + foundRecipes.get(i).getName());
 				}
@@ -62,13 +62,17 @@ public class ProgramMain {
 				if (userSelection == 0) {
 					//insert possible boolean
 				} else {
-					Recipe userRecipe = foundRecipes.get(userSelection);
+					if (userSelection > 0 && userSelection <= foundRecipes.size()) {
+					Recipe userRecipe = foundRecipes.get(userSelection - 1);
 					System.out.println(userRecipe.toString());
+					} else {
+						System.out.println("Not a valid selection.");
+					}
 				}
 			} else if (userInput.equalsIgnoreCase("help") || userInput.equalsIgnoreCase("h")) {
 				System.out.println("Options: ");
 				System.out.println("   Search\tFind a Recipe");
-				System.out.println("   help, h\tGet Help");
+				System.out.println("   help\tGet Help");
 				System.out.println("-------------------\n");
 			} else if (userInput.equalsIgnoreCase("exit")) {
 				loop = false;
