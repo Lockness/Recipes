@@ -62,7 +62,7 @@ public class Recipe {
 	 *  Getters and Setters
 	 */
 
-	String getName() {
+	public String getName() {
 		return name;
 	}
 
