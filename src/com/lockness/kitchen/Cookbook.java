@@ -14,7 +14,7 @@ public class Cookbook {
 	/**
 	 * An alphabetically-ordered map or recipes.
 	 */
-	TreeMap<String, Recipe> recipeList;
+	private TreeMap<String, Recipe> recipeList;
 
 	/**
 	 * No-argument constructor.
@@ -42,8 +42,8 @@ public class Cookbook {
 		Recipe newRecipe = new Recipe(name, description, servingSize, prep, cook, ready, instructions); 
 		this.recipeList.put(name, newRecipe);
 	}
-	
-	
+
+
 	public void addRecipe(Recipe recipe){
 		this.recipeList.put(recipe.getName(), recipe);
 	}
@@ -76,7 +76,7 @@ public class Cookbook {
 	public Recipe seeRecipe(String name){
 		return this.recipeList.get(name);
 	}
-	
+
 	/**
 	 * Searches for all recipes that contain {@code name}.
 	 * 
@@ -98,32 +98,40 @@ public class Cookbook {
 		for (Map.Entry<String, Recipe> recipe : this.recipeList.entrySet()) {
 			// If the key contains or is equal to the "name" being searched
 			// Add it to the list of search results
-			System.out.println(recipe.getKey());
 			if (recipe.getKey().toLowerCase().contains(name.toLowerCase()) || recipe.getKey().equalsIgnoreCase(name)) {
 				searchResults.add(recipe.getValue());
 			}
 		}		
-		
+
 		// Returns list of recipes containing the search name
 		return searchResults;
 	}
 
-        /**
-         * Reports the number of Recipes are in the Cookbook.
-         *
-         */
+	/**
+	 * Reports the number of Recipes are in the Cookbook.
+	 *
+	 */
 	public int numberOfRecipes() {
 		return this.recipeList.size();
 	}
-	
+
+	/**
+	 * Lists all the Recipes in the Cookbook.
+	 */
+	public void listRecipes() {
+		System.out.println("Listing Recipes...\n" + this.numberOfRecipes() + " recipes in the cookbook.\n");
+		for (Map.Entry<String, Recipe> recipe : this.recipeList.entrySet()) {
+			System.out.println(recipe.getValue().getName());
+		}
+		System.out.println("");
+	}
+
 	@Override
 	public String toString() {
 		String returnMe = "";
-
 		for (Map.Entry<String, Recipe> recipe : this.recipeList.entrySet()) {
 			returnMe = returnMe + recipe.getValue().toString() + '\n' + '\n' + '\n';
 		}
-		
 		return returnMe;
 	}
 

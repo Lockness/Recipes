@@ -21,7 +21,7 @@ public class ProgramMain {
 		this.welcome();
 		this.userInterface();
 	}
-	
+
 	void initializeProgram(){
 		this.cookbook = new Cookbook();
 
@@ -34,19 +34,19 @@ public class ProgramMain {
 		}
 
 	}
-	
+
 	void welcome() {
 		System.out.println("//--------------------------\\");
 		System.out.println("|| Welcome to CollegeCooks! ||");
-		System.out.println("\\--------------------------//");
-		System.out.println("\n\nWhat would you like to do? (\"help\" for assistance)");
+		System.out.println("\\--------------------------//\n");
 	}
 
 	void userInterface() {
-		Scanner scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);		
 		boolean loop = true;
 
 		while (loop) {
+			System.out.print("| ");
 			String userInput = scanner.nextLine();
 			if (userInput.equalsIgnoreCase("Search")) {
 				System.out.println("Enter a keyword");
@@ -57,23 +57,36 @@ public class ProgramMain {
 				for (int i = 0; i < foundRecipes.size(); i++) {
 					System.out.println((i + 1) + " - " + foundRecipes.get(i).getName());
 				}
-				int userSelection = scanner.nextInt();
+				int userSelection = 0;
+				try {
+					userSelection = scanner.nextInt();
+				} catch (Exception e) {
+					System.out.println("Not a int. Aborting");
+					break;
+				}
 				scanner.nextLine();
 				if (userSelection == 0) {
 					//insert possible boolean
 				} else {
-					if (userSelection > 0 && userSelection <= foundRecipes.size()) {
-					Recipe userRecipe = foundRecipes.get(userSelection - 1);
-					System.out.println(userRecipe.toString());
-					} else {
-						System.out.println("Not a valid selection.");
+					while(true) {
+						if (userSelection > 0 && userSelection <= foundRecipes.size()) {
+							Recipe userRecipe = foundRecipes.get(userSelection - 1);
+							System.out.println(userRecipe.toString());
+							break;
+						} else {
+							System.out.println("Not a valid selection. Try again.");
+							userSelection = scanner.nextInt();
+							scanner.nextLine();
+						}
 					}
 				}
+			} else if (userInput.equalsIgnoreCase("list") || userInput.equalsIgnoreCase("ls")) {
+					cookbook.listRecipes();
 			} else if (userInput.equalsIgnoreCase("help") || userInput.equalsIgnoreCase("h")) {
 				System.out.println("Options: ");
 				System.out.println("   Search\tFind a Recipe");
+				System.out.println("   List\tList Recipes");
 				System.out.println("   help\tGet Help");
-				System.out.println("-------------------\n");
 			} else if (userInput.equalsIgnoreCase("exit")) {
 				loop = false;
 			} else {
