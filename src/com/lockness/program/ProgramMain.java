@@ -83,9 +83,9 @@ public class ProgramMain {
 			} else if (userInput.equalsIgnoreCase("list") || userInput.equalsIgnoreCase("ls")) {
 				cookbook.listRecipes();
 			} else if (userInput.equalsIgnoreCase("add")) {
-				String recipeName = InputParser.makeRCP();
+				String recipeName = InputParser.makeRCP(scanner);
 				cookbook.addRecipe(InputParser.parseRCP(recipeName));
-				System.out.println("Added " + recipeName);
+				System.out.println("Added " + recipeName + '\n');
 			} else if (userInput.equalsIgnoreCase("help") || userInput.equalsIgnoreCase("h")) {
 				System.out.println("Options: ");
 				System.out.println("   Search\tFind a Recipe");
@@ -97,6 +97,8 @@ public class ProgramMain {
 				System.out.println("Please enter command. \"help\" for assistance");
 			}
 		}
+		
+		scanner.close();
 	}
 
 }
