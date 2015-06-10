@@ -84,13 +84,6 @@ public class ProgramMain {
 				}
 			} else if (userInput.equalsIgnoreCase("list") || userInput.equalsIgnoreCase("ls")) {
 				cookbook.listRecipes();
-<<<<<<< HEAD
-=======
-			} else if (userInput.equalsIgnoreCase("add")) {
-				String recipeName = InputParser.makeRCP(scanner);
-				cookbook.addRecipe(InputParser.parseRCP(recipeName));
-				System.out.println("Added " + recipeName + '\n');
->>>>>>> UIWriteToFile
 			} else if (userInput.equalsIgnoreCase("help") || userInput.equalsIgnoreCase("h")) {
 				System.out.println("Options: ");
 				System.out.println("   Search\tFind a Recipe");
