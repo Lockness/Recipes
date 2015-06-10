@@ -100,5 +100,26 @@ public class InputParser {
 		}
 		return null;
 	}
+	
+	public static int safeInt(Scanner input) {
+		String userInput = input.nextLine();
+		while (true) {
+			if(tryParseInt(userInput)) {
+				return Integer.parseInt(userInput);
+			} else {
+				System.out.println("Error. Not an int.");
+				userInput = input.nextLine();
+			}
+		}
+	}
+
+	private static boolean tryParseInt(String value) {  
+		try {  
+			Integer.parseInt(value);  
+			return true;  
+		} catch(NumberFormatException nfe) {  
+			return false;  
+		}  
+	}
 
 }
