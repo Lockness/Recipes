@@ -58,13 +58,15 @@ public class ProgramMain {
 					System.out.println((i + 1) + " - " + foundRecipes.get(i).getName());
 				}
 				int userSelection = 0;
-				try {
-					userSelection = scanner.nextInt();
-				} catch (Exception e) {
-					System.out.println("Not a int. Aborting");
-					break;
+				while (true) {
+					try {
+						userSelection = scanner.nextInt();
+						scanner.nextLine();
+						break;
+					} catch (Exception e) {
+						System.out.println("Please enter an integer.");
+					}
 				}
-				scanner.nextLine();
 				if (userSelection == 0) {
 					//insert possible boolean
 				} else {
@@ -75,17 +77,13 @@ public class ProgramMain {
 							break;
 						} else {
 							System.out.println("Not a valid selection. Try again.");
-							userSelection = scanner.nextInt();
+							userSelection = scanner.nextInt(); //Find safer way to get int from user.
 							scanner.nextLine();
 						}
 					}
 				}
 			} else if (userInput.equalsIgnoreCase("list") || userInput.equalsIgnoreCase("ls")) {
 				cookbook.listRecipes();
-			} else if (userInput.equalsIgnoreCase("add")) {
-				String recipeName = InputParser.makeRCP();
-				cookbook.addRecipe(InputParser.parseRCP(recipeName));
-				System.out.println("Added " + recipeName);
 			} else if (userInput.equalsIgnoreCase("help") || userInput.equalsIgnoreCase("h")) {
 				System.out.println("Options: ");
 				System.out.println("   Search\tFind a Recipe");
