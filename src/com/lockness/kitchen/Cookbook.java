@@ -119,7 +119,7 @@ public class Cookbook {
 	 * Lists all the Recipes in the Cookbook.
 	 */
 	public void listRecipes() {
-		System.out.println("Listing Recipes...\n" + this.numberOfRecipes() + " recipes in the cookbook.\n");
+	System.out.println("Listing Recipes...\n" + this.numberOfRecipes() + " recipes in the cookbook.\n");
 		for (Map.Entry<String, Recipe> recipe : this.recipeList.entrySet()) {
 			System.out.println(recipe.getValue().getName());
 		}

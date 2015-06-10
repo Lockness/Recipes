@@ -1,7 +1,13 @@
 package com.lockness.util;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -94,47 +100,5 @@ public class InputParser {
 		}
 		return null;
 	}
-	
-	public static void makeRCP() {
-		//Objects and variables needed
-		Scanner input = new Scanner(System.in);
-		String name = "", description = "", ingredientName = "", ingredientUnit = "", instruction = "", currentLine;
-		int servingSize = -1, time[] = new int[3], numOfIngredients = 0;
-		float ingredientQuantity = 0.00f;
-		
-		//Get information
-		System.out.println("Enter the Recipe name");
-		name = input.nextLine();
-		System.out.println("Enter Recipe description");
-		description = input.nextLine();
-		System.out.println("Enter serving size");
-		try {
-		servingSize = input.nextInt();
-		System.out.println("Enter prep time");
-		time[0] = input.nextInt();
-		System.out.println("Enter cook time");
-		time[1] = input.nextInt();
-		System.out.println("Enter ready time");
-		time[2] = input.nextInt();
-		System.out.println("Enter number of ingredients");
-		numOfIngredients = input.nextInt();
-		} catch (Exception e) {
-			System.err.println("Exception getting int from user.");
-		}
-		for (int i = 0; i < numOfIngredients; i++) {
-			System.out.println("Enter name of ingredient");
-			ingredientName = input.nextLine();
-			System.out.println("Enter how many " + ingredientName + " are needed");
-			try {
-				ingredientQuantity = input.nextFloat();
-			} catch (Exception e) {
-			 System.err.println("Exception getting float from user.");	
-			}
-			System.out.println("Enter the unit");
-			ingredientUnit = input.nextLine();
-		}
-		
-	
-		input.close();
-	}
+
 }
