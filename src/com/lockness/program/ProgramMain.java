@@ -32,6 +32,9 @@ public class ProgramMain {
 		for(int i = 0; i < listOfRecipes.length; i++) {
 			Recipe recipe = InputParser.parseRCP(listOfRecipes[i].getName());
 			this.cookbook.addRecipe(recipe);
+			if (recipe.isFavorite()) {
+				this.favorites.addRecipe(recipe);
+			}
 		}
 
 	}
@@ -79,7 +82,32 @@ public class ProgramMain {
 						}
 					}
 				}
-			} else if (userInput.equalsIgnoreCase("list") || userInput.equalsIgnoreCase("ls")) {
+			} else if (userInput.equalsIgnoreCase("Fav") || userInput.equalsIgnoreCase("Favorites")) {
+				System.out.println("---FAVORITES---");
+				System.out.println("List, Add, or Remove?");
+				userInput = scanner.nextLine();
+				if (userInput.equalsIgnoreCase("List") || userInput.equalsIgnoreCase("ls")) {
+					this.favorites.listRecipes();
+				} else if (userInput.equalsIgnoreCase("add")) {
+					System.out.println("Which Recipe?");
+					userInput = scanner.nextLine();
+					Recipe recipe = this.cookbook.seeRecipe(userInput);
+					recipe.setFavorite(true);
+					this.favorites.addRecipe(recipe);
+					System.out.println("Added " + userInput + " to favorites");
+				} else if (userInput.equalsIgnoreCase("remove") || userInput.equalsIgnoreCase("rm")) {
+					System.out.println("Which Recipe?");
+					userInput = scanner.nextLine();
+					Recipe recipe = this.cookbook.seeRecipe(userInput);
+					recipe.setFavorite(false);
+					this.favorites.removeRecipe(userInput);
+					System.out.println("Removed " + userInput + " to favorites");
+				} else if (userInput.equals("")) {
+					//Do nothing
+				} else {
+					System.out.println("Not a valid command");
+				}
+			}else if (userInput.equalsIgnoreCase("list") || userInput.equalsIgnoreCase("ls")) {
 				List<String> recipeNamesList = this.cookbook.listRecipes();
 				System.out.println("Enter a name to print it or press enter to return to the Main Menu.\n");
 				String userRecipeChoiceFromList = scanner.nextLine();
@@ -99,7 +127,7 @@ public class ProgramMain {
 				System.out.println("  ---------------------------");
 				System.out.println("  |List    |  List Recipes  |");
 				System.out.println("  ---------------------------");
-				System.out.println("  |Edit    |  Edit a Recipe |");
+				System.out.println("  |Fav     |  Open Favorites|");
 				System.out.println("  ---------------------------");
 				System.out.println("  |Help    |  Get Help      |");
 				System.out.println("  ---------------------------");
