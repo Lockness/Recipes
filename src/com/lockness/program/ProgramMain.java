@@ -14,7 +14,7 @@ import com.lockness.util.InputParser;
  */
 public class ProgramMain {
 
-	Cookbook cookbook;
+	Cookbook cookbook, favorites;
 
 	public void programStart() {
 		this.initializeProgram();
@@ -24,6 +24,7 @@ public class ProgramMain {
 
 	void initializeProgram(){
 		this.cookbook = new Cookbook();
+		this.favorites = new Cookbook();
 
 		File recipeFolder = new File("Recipe");
 		File[] listOfRecipes = recipeFolder.listFiles();
@@ -65,9 +66,7 @@ public class ProgramMain {
 					break;
 				}
 				scanner.nextLine();
-				if (userSelection == 0) {
-					//insert possible boolean
-				} else {
+				if (userSelection != 0) {
 					while(true) {
 						if (userSelection > 0 && userSelection <= foundRecipes.size()) {
 							Recipe userRecipe = foundRecipes.get(userSelection - 1);
@@ -95,14 +94,16 @@ public class ProgramMain {
 			} else if (userInput.equalsIgnoreCase("help") || userInput.equalsIgnoreCase("h")) {
 				System.out.println("Options: ");
 				System.out.println("   COMMAND       ACTION");
-				System.out.println("  --------------------------");
-				System.out.println("  |Search  |  Find a Recipe|");
-				System.out.println("  --------------------------");
-				System.out.println("  |List    |  List Recipes |");
-				System.out.println("  --------------------------");
-				System.out.println("  |Help    |  Get Help     |");
-				System.out.println("  --------------------------");
-			} else if (userInput.equalsIgnoreCase("exit")) {
+				System.out.println("  ---------------------------");
+				System.out.println("  |Search  |  Find a Recipe |");
+				System.out.println("  ---------------------------");
+				System.out.println("  |List    |  List Recipes  |");
+				System.out.println("  ---------------------------");
+				System.out.println("  |Edit    |  Edit a Recipe |");
+				System.out.println("  ---------------------------");
+				System.out.println("  |Help    |  Get Help      |");
+				System.out.println("  ---------------------------");
+			} else if (userInput.equalsIgnoreCase("exit") || userInput.equalsIgnoreCase("quit")) {
 				loop = false;
 			} else {
 				System.out.println("Please enter command. \"help\" for assistance");

@@ -38,24 +38,32 @@ public class Recipe {
 	 */
 	String instructions;
 
+	boolean favorite;
+
 	/**
 	 * Constructors
 	 */
 
 	Recipe(String name) {
-		this(name, null, -1, -1, -1, -1, null);
+		this(name, null, -1, -1, -1, null, false);
 	}
 
-	public Recipe(String name, String description, int servingSize, int prep, int cook, int ready, String instructions) {
+	public Recipe(String name, String description, int servingSize, int prep, int cook, String instructions) {
+		this(name, description, servingSize, prep, cook, instructions, false);
+
+	}
+
+	public Recipe(String name, String description, int servingSize, int prep, int cook, String instructions, boolean favorite) {
 		this.name = name;
 		this.description = description;
 		this.servingSize = servingSize;
 		this.time = new int[3];
 		this.time[0] = prep;
 		this.time[1] = cook;
-		this.time[2] = ready;
+		this.time[2] = this.time[0] + this.time[1];
 		this.ingredients = new TreeMap<String, Ingredient>();
 		this.instructions = instructions;
+		this.favorite = favorite;
 	}
 
 	/**
@@ -131,6 +139,14 @@ public class Recipe {
 		return this.ingredients.containsKey(name);
 	}
 
+	public boolean isFavorite() {
+		return this.favorite;
+	}
+
+	public void setFavorite(boolean favorite) {
+		this.favorite = favorite;
+	}
+
 	/**
 	 * Instance Methods
 	 */
@@ -154,7 +170,7 @@ public class Recipe {
 		}
 
 		String returnMe = this.name + '\n' + underline + '\n' + this.description + '\n';
-		returnMe = returnMe + "Serves " + this.servingSize + " people." + '\n' + "Ready in " + this.time[2] + '\n';
+		returnMe = returnMe + "Serves " + this.servingSize + " people." + '\n' + "Ready in " + this.time[2] + '\n' + this.favorite;
 		String ingredAsString = "";
 		for (Map.Entry<String, Ingredient> ingred : this.ingredients.entrySet()) {
 			ingredAsString = ingredAsString + ingred.getValue().toString() + '\n';
