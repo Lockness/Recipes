@@ -26,13 +26,13 @@ public class Recipe {
 	/**
 	 * The serving size that the given recipe creates.
 	 */
-	int servingSize; 
+	int servingSize;
 
 	/**
 	 * An array at which time[0] = preparation time, time[1] = cooking time, time[2] = total time before ready
 	 */
 	int time[];
-	
+
 	/**
 	 * The detailed instructions on how to make the given recipe.
 	 */
@@ -63,7 +63,7 @@ public class Recipe {
 	 */
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	void rename (String name) {
@@ -71,7 +71,7 @@ public class Recipe {
 	}
 
 	String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	void replaceDescription(String description) {
@@ -79,7 +79,7 @@ public class Recipe {
 	}
 
 	int getServingSize() {
-		return servingSize;
+		return this.servingSize;
 	}
 
 	void updateServingSize(int servingSize) {
@@ -87,7 +87,7 @@ public class Recipe {
 	}
 
 	int getPrepTime() {
-		return time[0];
+		return this.time[0];
 	}
 
 	void updatePrepTime(int prep) {
@@ -95,7 +95,7 @@ public class Recipe {
 	}
 
 	int getCookTime() {
-		return time[1];
+		return this.time[1];
 	}
 
 	void updateCookTime(int cook) {
@@ -103,7 +103,7 @@ public class Recipe {
 	}
 
 	int getReadyTime() {
-		return time[2];
+		return this.time[2];
 	}
 
 	void updateReadyTime(int ready) {
@@ -111,13 +111,13 @@ public class Recipe {
 	}
 
 	String getInstructions() {
-		return instructions;
+		return this.instructions;
 	}
 
 	void replaceInstructions(String instructions) {
 		this.instructions = instructions;
 	}
-	
+
 	void addIngredient(String name, float quantity, String unit) {
 		Ingredient ingredient = new Ingredient(name, quantity, unit);
 		this.ingredients.put(name, ingredient);
@@ -126,7 +126,7 @@ public class Recipe {
 	public void replaceIngredientSet(TreeMap<String, Ingredient> ingredientList){
 		this.ingredients = ingredientList;
 	}
-	
+
 	boolean containsIngredient(String name) {
 		return this.ingredients.containsKey(name);
 	}
@@ -138,28 +138,28 @@ public class Recipe {
 	int numberOfUniqueIngredients() {
 		return this.ingredients.size();
 	}
-	
+
 	void editIngredientQuantity(String name, float newQuantity) {
 		Ingredient ingredient = this.ingredients.remove(name);
 		ingredient.setQuantity(newQuantity);
 		this.ingredients.put(name, ingredient);
 	}
-	
+
 	@Override
 	public String toString() {
-		
+
 		String underline = "";
-		for(int i = 0; i < name.length(); i++) {
+		for(int i = 0; i < this.name.length(); i++) {
 			underline += '-';
 		}
-		
-		String returnMe = name + '\n' + underline + '\n' + description + '\n';
-		returnMe = returnMe + "Serves " + servingSize + " people." + '\n' + "Ready in " + time[2] + '\n';
+
+		String returnMe = this.name + '\n' + underline + '\n' + this.description + '\n';
+		returnMe = returnMe + "Serves " + this.servingSize + " people." + '\n' + "Ready in " + this.time[2] + '\n';
 		String ingredAsString = "";
 		for (Map.Entry<String, Ingredient> ingred : this.ingredients.entrySet()) {
 			ingredAsString = ingredAsString + ingred.getValue().toString() + '\n';
 		}
-		returnMe = returnMe + ingredAsString + instructions;
+		returnMe = returnMe + ingredAsString + this.instructions;
 		return returnMe;
 	}
 
