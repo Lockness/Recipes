@@ -1,7 +1,6 @@
 package com.lockness.program;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,7 +30,7 @@ public class ProgramMain {
 
 		for(int i = 0; i < listOfRecipes.length; i++) {
 			Recipe recipe = InputParser.parseRCP(listOfRecipes[i].getName());
-			cookbook.addRecipe(recipe);
+			this.cookbook.addRecipe(recipe);
 		}
 
 	}
@@ -43,7 +42,7 @@ public class ProgramMain {
 	}
 
 	void userInterface() {
-		Scanner scanner = new Scanner(System.in);		
+		Scanner scanner = new Scanner(System.in);
 		boolean loop = true;
 
 		while (loop) {
@@ -52,7 +51,7 @@ public class ProgramMain {
 			if (userInput.equalsIgnoreCase("Search")) {
 				System.out.println("Enter a keyword");
 				String keyword = scanner.nextLine();
-				List<Recipe> foundRecipes = cookbook.searchRecipe(keyword);
+				List<Recipe> foundRecipes = this.cookbook.searchRecipe(keyword);
 
 				System.out.println("0 - Back");
 				for (int i = 0; i < foundRecipes.size(); i++) {
@@ -82,16 +81,16 @@ public class ProgramMain {
 					}
 				}
 			} else if (userInput.equalsIgnoreCase("list") || userInput.equalsIgnoreCase("ls")) {
-				ArrayList<String> recipeNamesList = new ArrayList<String>();
-				recipeNamesList = cookbook.listRecipes();
+				List<String> recipeNamesList = this.cookbook.listRecipes();
+				System.out.println("Enter a name to print it or press enter to return to the Main Menu.\n");
 				String userRecipeChoiceFromList = scanner.nextLine();
 				if (recipeNamesList.contains(userRecipeChoiceFromList)) {
-					Recipe recipeFromName = 
+					Recipe recipeFromName = this.cookbook.seeRecipe(userRecipeChoiceFromList);
 					System.out.println(recipeFromName.toString());
 				}
 			} else if (userInput.equalsIgnoreCase("add")) {
 				String recipeName = InputParser.makeRCP(scanner);
-				cookbook.addRecipe(InputParser.parseRCP(recipeName));
+				this.cookbook.addRecipe(InputParser.parseRCP(recipeName));
 				System.out.println("Added " + recipeName + '\n');
 			} else if (userInput.equalsIgnoreCase("help") || userInput.equalsIgnoreCase("h")) {
 				System.out.println("Options: ");
@@ -109,7 +108,7 @@ public class ProgramMain {
 				System.out.println("Please enter command. \"help\" for assistance");
 			}
 		}
-		
+
 		scanner.close();
 	}
 
