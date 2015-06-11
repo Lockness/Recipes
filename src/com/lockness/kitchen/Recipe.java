@@ -61,6 +61,14 @@ public class Recipe {
 	/**
 	 *  Getters and Setters
 	 */
+	
+	public Recipe getRecipeFromName(String recipeName) {
+		if (this.name.equalsIgnoreCase(recipeName)) {
+			return this;
+		} else {
+			return null;
+		}
+	}
 
 	public String getName() {
 		return name;

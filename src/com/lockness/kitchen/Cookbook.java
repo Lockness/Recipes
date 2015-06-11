@@ -123,6 +123,7 @@ public class Cookbook {
 		for (Map.Entry<String, Recipe> recipe : this.recipeList.entrySet()) {
 			System.out.println(recipe.getValue().getName());
 		}
+		System.out.println("Enter the full name of one of \nthese recipes to view it");
 		System.out.println("");
 	}
 

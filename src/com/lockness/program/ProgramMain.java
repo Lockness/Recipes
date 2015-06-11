@@ -1,6 +1,7 @@
 package com.lockness.program;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -81,16 +82,27 @@ public class ProgramMain {
 					}
 				}
 			} else if (userInput.equalsIgnoreCase("list") || userInput.equalsIgnoreCase("ls")) {
-				cookbook.listRecipes();
+				ArrayList<String> recipeNamesList = new ArrayList<String>();
+				recipeNamesList = cookbook.listRecipes();
+				String userRecipeChoiceFromList = scanner.nextLine();
+				if (recipeNamesList.contains(userRecipeChoiceFromList)) {
+					Recipe recipeFromName = 
+					System.out.println(recipeFromName.toString());
+				}
 			} else if (userInput.equalsIgnoreCase("add")) {
 				String recipeName = InputParser.makeRCP(scanner);
 				cookbook.addRecipe(InputParser.parseRCP(recipeName));
 				System.out.println("Added " + recipeName + '\n');
 			} else if (userInput.equalsIgnoreCase("help") || userInput.equalsIgnoreCase("h")) {
 				System.out.println("Options: ");
-				System.out.println("   Search\tFind a Recipe");
-				System.out.println("   List\tList Recipes");
-				System.out.println("   help\tGet Help");
+				System.out.println("   COMMAND       ACTION");
+				System.out.println("  --------------------------");
+				System.out.println("  |Search  |  Find a Recipe|");
+				System.out.println("  --------------------------");
+				System.out.println("  |List    |  List Recipes |");
+				System.out.println("  --------------------------");
+				System.out.println("  |Help    |  Get Help     |");
+				System.out.println("  --------------------------");
 			} else if (userInput.equalsIgnoreCase("exit")) {
 				loop = false;
 			} else {
