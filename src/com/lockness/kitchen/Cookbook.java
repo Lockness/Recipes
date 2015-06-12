@@ -38,10 +38,8 @@ public class Cookbook {
 	 * @requires name is not in DOMAIN(this)
 	 * @ensures this = #this union {(name, recipe)}
 	 */
-	public void addRecipe(String name, String description, int servingSize,
-			int prep, int cook, int ready, String instructions) {
-		Recipe newRecipe = new Recipe(name, description, servingSize, prep,
-				cook, ready, instructions);
+	public void addRecipe(String name, String description, int servingSize, int prep, int cook, String instructions) {
+		Recipe newRecipe = new Recipe(name, description, servingSize, prep, cook, instructions);
 		this.recipeList.put(name, newRecipe);
 	}
 

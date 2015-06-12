@@ -1,5 +1,11 @@
 package com.lockness.kitchen;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 /**
@@ -38,24 +44,34 @@ public class Recipe {
 	 */
 	String instructions;
 
+	public static String folder = "Recipe/";
+
+	boolean favorite;
+
 	/**
 	 * Constructors
 	 */
 
 	Recipe(String name) {
-		this(name, null, -1, -1, -1, -1, null);
+		this(name, null, -1, -1, -1, null, false);
 	}
 
-	public Recipe(String name, String description, int servingSize, int prep, int cook, int ready, String instructions) {
+	public Recipe(String name, String description, int servingSize, int prep, int cook, String instructions) {
+		this(name, description, servingSize, prep, cook, instructions, false);
+
+	}
+
+	public Recipe(String name, String description, int servingSize, int prep, int cook, String instructions, boolean favorite) {
 		this.name = name;
 		this.description = description;
 		this.servingSize = servingSize;
 		this.time = new int[3];
 		this.time[0] = prep;
 		this.time[1] = cook;
-		this.time[2] = ready;
+		this.time[2] = this.time[0] + this.time[1];
 		this.ingredients = new TreeMap<String, Ingredient>();
 		this.instructions = instructions;
+		this.favorite = favorite;
 	}
 
 	/**
@@ -131,6 +147,46 @@ public class Recipe {
 		return this.ingredients.containsKey(name);
 	}
 
+	public boolean isFavorite() {
+		return this.favorite;
+	}
+
+	public void setFavorite(boolean favorite) {
+		if (favorite != this.favorite) {
+			this.favorite = favorite;
+			String filename = this.name.replace(' ', '_') + ".rcp";
+			File file = new File(folder + filename);
+			Scanner inFile;
+			try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("TempRecipe"), "UTF-8"))) {
+				inFile = new Scanner(file);
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				for (int i = 0; i < this.numberOfUniqueIngredients(); i++) {
+					writer.write(inFile.nextLine() + '\n');
+					writer.write(inFile.nextLine() + '\n');
+					writer.write(inFile.nextLine() + '\n');
+				}
+				writer.write(inFile.nextLine() + '\n');
+				if (favorite) {
+					writer.write("8 t");
+				} else {
+					writer.write("8 f");
+				}
+				File tmpFile = new File ("TempRecipe");
+				tmpFile.renameTo(file);
+
+				inFile.close();
+				writer.close();
+			} catch (Exception e) {
+				System.err.println("Could not write to " + filename);
+			}
+
+		}
+
+	}
+
 	/**
 	 * Instance Methods
 	 */
@@ -154,7 +210,7 @@ public class Recipe {
 		}
 
 		String returnMe = this.name + '\n' + underline + '\n' + this.description + '\n';
-		returnMe = returnMe + "Serves " + this.servingSize + " people." + '\n' + "Ready in " + this.time[2] + '\n';
+		returnMe = returnMe + "Serves " + this.servingSize + " people." + '\n' + "Ready in " + this.time[2] + '\n' + this.favorite;
 		String ingredAsString = "";
 		for (Map.Entry<String, Ingredient> ingred : this.ingredients.entrySet()) {
 			ingredAsString = ingredAsString + ingred.getValue().toString() + '\n';
