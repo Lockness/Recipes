@@ -1,5 +1,11 @@
 package com.lockness.kitchen;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 /**
@@ -144,7 +150,39 @@ public class Recipe {
 	}
 
 	public void setFavorite(boolean favorite) {
-		this.favorite = favorite;
+		if (favorite != this.favorite) {
+			this.favorite = favorite;
+			String filename = this.name.replace(' ', '_') + ".rcp";
+			File file = new File("Recipe/" + filename);
+			Scanner inFile;
+			try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("TempRecipe"), "UTF-8"))) {
+				inFile = new Scanner(file);
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				for (int i = 0; i < this.numberOfUniqueIngredients(); i++) {
+					writer.write(inFile.nextLine() + '\n');
+					writer.write(inFile.nextLine() + '\n');
+					writer.write(inFile.nextLine() + '\n');
+				}
+				writer.write(inFile.nextLine() + '\n');
+				if (favorite) {
+					writer.write("8 t");
+				} else {
+					writer.write("8 f");
+				}
+				File tmpFile = new File ("TempRecipe");
+				tmpFile.renameTo(file);
+
+				inFile.close();
+				writer.close();
+			} catch (Exception e) {
+				System.err.println("Could not write to " + filename);
+			}
+
+		}
+
 	}
 
 	/**

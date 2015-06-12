@@ -154,12 +154,14 @@ public class InputParser {
 			}
 			writer.write("7 " + instructions + '\n');
 			writer.write("8 f");
+			writer.close();
 		} catch (Exception e) {
 			System.err.println("Could not write to " + filename);
 		}
 
 		return filename;
 	}
+
 
 	public static int safeInt(Scanner input) {
 		String userInput = input.nextLine();
