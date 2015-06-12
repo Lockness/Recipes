@@ -44,6 +44,8 @@ public class Recipe {
 	 */
 	String instructions;
 
+	public static String folder = "Recipe/";
+
 	boolean favorite;
 
 	/**
@@ -153,7 +155,7 @@ public class Recipe {
 		if (favorite != this.favorite) {
 			this.favorite = favorite;
 			String filename = this.name.replace(' ', '_') + ".rcp";
-			File file = new File("Recipe/" + filename);
+			File file = new File(folder + filename);
 			Scanner inFile;
 			try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("TempRecipe"), "UTF-8"))) {
 				inFile = new Scanner(file);

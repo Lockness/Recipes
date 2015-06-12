@@ -39,7 +39,7 @@ public class InputParser {
 		float ingredientQuantity = 0.00f;
 		boolean isFavorite = false;
 		TreeMap<String, Ingredient> ingredients = new TreeMap<String, Ingredient>();
-		File file = new File("Recipe/" + filename);
+		File file = new File(Recipe.folder + filename);
 		Scanner input;
 		try {
 			input = new Scanner(file);
@@ -142,7 +142,7 @@ public class InputParser {
 		instructions = input.nextLine();
 
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-				new FileOutputStream("Recipe/" + filename), "UTF-8"))) {
+				new FileOutputStream(Recipe.folder + filename), "UTF-8"))) {
 			writer.write("0 " + name + '\n');
 			writer.write("1 " + description + '\n');
 			writer.write("2 " + servingSize + '\n');
