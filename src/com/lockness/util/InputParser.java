@@ -108,14 +108,25 @@ public class InputParser {
 
 	public static String makeRCP(Scanner input) {
 		//Objects and variables needed
-		String name = "", description = "", ingredientName = "", ingredientUnit = "", instructions = "";
+		String name = "", description = "", ingredientName = "", ingredientUnit = "", instructions = "", filename = "";
 		int servingSize = -1, time[] = new int[3], numOfIngredients = 0;
 		float ingredientQuantity = 0.00f;
+		boolean loop = true;
 
 		//Get information
 		System.out.println("Enter the Recipe name");
-		name = input.nextLine();
-		String filename = name.replace(' ', '_') + ".rcp";
+		while (loop) {
+			name = input.nextLine();
+			filename = name.replace(' ', '_') + ".rcp";
+
+			//Check if file exists
+			File file = new File(Recipe.folder + filename);
+			if (file.exists()) {
+				System.out.println("Sorry, that name is already taken. Please choose another.");
+			} else {
+				loop = false;
+			}
+		}
 		System.out.println("Enter Recipe description");
 		description = input.nextLine();
 		System.out.println("Enter serving size");

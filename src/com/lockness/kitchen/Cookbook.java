@@ -126,6 +126,10 @@ public class Cookbook {
 		return list;
 	}
 
+	public boolean hasRecipe(String name) {
+		return this.recipeList.containsKey(name);
+	}
+
 	@Override
 	public String toString() {
 		String returnMe = "";

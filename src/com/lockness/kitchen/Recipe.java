@@ -210,7 +210,7 @@ public class Recipe {
 		}
 
 		String returnMe = this.name + '\n' + underline + '\n' + this.description + '\n';
-		returnMe = returnMe + "Serves " + this.servingSize + " people." + '\n' + "Ready in " + this.time[2] + '\n' + this.favorite;
+		returnMe = returnMe + "Serves " + this.servingSize + " people." + '\n' + "Ready in " + this.time[2] + '\n';
 		String ingredAsString = "";
 		for (Map.Entry<String, Ingredient> ingred : this.ingredients.entrySet()) {
 			ingredAsString = ingredAsString + ingred.getValue().toString() + '\n';

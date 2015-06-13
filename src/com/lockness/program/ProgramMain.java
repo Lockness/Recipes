@@ -134,30 +134,47 @@ public class ProgramMain {
 	 */
 	public void favorites(Scanner scanner) {
 		System.out.println("---FAVORITES---");
-		System.out.println("List, Add, or Remove?");
 
 		while (true) {
+			System.out.println("List, Add, Remove or Back?");
 			String userInput = scanner.nextLine();
 			if (userInput.equalsIgnoreCase("List") || userInput.equalsIgnoreCase("ls")) {
 				this.favorites.listRecipes();
-				return;
 			} else if (userInput.equalsIgnoreCase("add")) {
+				boolean tOF = true;
 				System.out.println("Which Recipe?");
-				userInput = scanner.nextLine();
-				Recipe recipe = this.cookbook.seeRecipe(userInput);
-				recipe.setFavorite(true);
-				this.favorites.addRecipe(recipe);
-				System.out.println("Added " + userInput + " to favorites");
-				return;
+				while (tOF) {
+					userInput = scanner.nextLine();
+					if (this.cookbook.hasRecipe(userInput)) {
+						Recipe recipe = this.cookbook.seeRecipe(userInput);
+						recipe.setFavorite(true);
+						this.favorites.addRecipe(recipe);
+						System.out.println("Added " + userInput + " to favorites");
+						tOF = false;
+					} else if (userInput.equals("")) {
+						tOF = false;
+					} else {
+						System.out.println("Not a recipe. Try again or hit enter to back out.");
+					}
+				}
 			} else if (userInput.equalsIgnoreCase("remove") || userInput.equalsIgnoreCase("rm")) {
+				boolean tOF = true;
 				System.out.println("Which Recipe?");
-				userInput = scanner.nextLine();
-				Recipe recipe = this.cookbook.seeRecipe(userInput);
-				recipe.setFavorite(false);
-				this.favorites.removeRecipe(userInput);
-				System.out.println("Removed " + userInput + " from favorites");
-				return;
-			} else if (userInput.equals("")) {
+				while (tOF) {
+					userInput = scanner.nextLine();
+					if (this.cookbook.hasRecipe(userInput)) {
+						Recipe recipe = this.cookbook.seeRecipe(userInput);
+						recipe.setFavorite(false);
+						this.favorites.removeRecipe(userInput);
+						System.out.println("Removed " + userInput + " from favorites");
+						tOF = false;
+					} else if (userInput.equals("")) {
+						tOF = false;
+					}else {
+						System.out.println("Not a recipe. Try again or hit enter to back out.");
+					}
+				}
+			} else if (userInput.equals("") || userInput.equalsIgnoreCase("back")) {
 				return;
 			} else {
 				System.out.println("Not a valid command");
