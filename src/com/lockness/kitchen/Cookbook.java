@@ -12,7 +12,7 @@ import java.util.TreeMap;
 public class Cookbook {
 
 	/**
-	 * An alphabetically-ordered map or recipes.
+	 * An alphabetically-ordered map of recipes.
 	 */
 	private TreeMap<String, Recipe> recipeList;
 
@@ -90,19 +90,15 @@ public class Cookbook {
 	 *
 	 */
 	public List<Recipe> searchRecipe(String name) {
-		// List of search results to be returned
 		List<Recipe> searchResults = new ArrayList<Recipe>();
-		// Iterates through recipeList entries one by one
+
 		for (Map.Entry<String, Recipe> recipe : this.recipeList.entrySet()) {
-			// If the key contains or is equal to the "name" being searched
-			// Add it to the list of search results
 			if (recipe.getKey().toLowerCase().contains(name.toLowerCase())
 					|| recipe.getKey().equalsIgnoreCase(name)) {
 				searchResults.add(recipe.getValue());
 			}
 		}
 
-		// Returns list of recipes containing the search name
 		return searchResults;
 	}
 
@@ -119,22 +115,29 @@ public class Cookbook {
 	 */
 	public List<String> listRecipes() {
 		List<String> list = new ArrayList<String>();
-		System.out.println("Listing Recipes...\n" + this.numberOfRecipes()
-				+ " recipes in the cookbook.\n");
+
+		System.out.println("Listing Recipes...\n" + this.numberOfRecipes() + " recipes in the cookbook.\n");
 		for (Map.Entry<String, Recipe> recipe : this.recipeList.entrySet()) {
 			String name = recipe.getValue().getName();
 			System.out.println("* " + name);
 			list.add(name);
 		}
+
 		return list;
+	}
+
+	public boolean hasRecipe(String name) {
+		return this.recipeList.containsKey(name);
 	}
 
 	@Override
 	public String toString() {
 		String returnMe = "";
+
 		for (Map.Entry<String, Recipe> recipe : this.recipeList.entrySet()) {
 			returnMe = returnMe + recipe.getValue().toString() + "\n\n\n";
 		}
+
 		return returnMe;
 	}
 
