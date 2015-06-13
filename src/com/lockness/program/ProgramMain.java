@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.lockness.kitchen.Cookbook;
+import com.lockness.kitchen.Ingredient;
 import com.lockness.kitchen.Recipe;
 import com.lockness.util.InputParser;
 
@@ -48,6 +49,8 @@ public class ProgramMain {
 	void userInterface() {
 		Scanner scanner = new Scanner(System.in);
 		boolean loop = true;
+		String ingredientName = "", ingredientUnit = "";
+		float ingredientQuantity = 0.00f;
 
 		while (loop) {
 			System.out.print("| ");
@@ -60,10 +63,27 @@ public class ProgramMain {
 				this.list(scanner);
 			} else if (userInput.equalsIgnoreCase("add")) {
 				this.add(scanner);
+			} else if (userInput.equalsIgnoreCase("edit")) {
+				this.edit(scanner);
 			} else if (userInput.equalsIgnoreCase("help") || userInput.equalsIgnoreCase("h")) {
 				this.options();
 			} else if (userInput.equalsIgnoreCase("exit") || userInput.equalsIgnoreCase("quit")) {
 				loop = false;
+			} else if (userInput.equals("debug")) {
+				System.out.println("How many ingredients?");
+				int newNumber = InputParser.safeInt(scanner);
+				Ingredient[] ingredients = new Ingredient[newNumber];
+				for (int i = 0; i < newNumber; i++) {
+					System.out.println("Enter name of ingredient");
+					ingredientName = scanner.nextLine();
+					System.out.println("Enter how many " + ingredientName + " are needed");
+					ingredientQuantity = InputParser.safeInt(scanner);
+					System.out.println("Enter the unit");
+					ingredientUnit = scanner.nextLine();
+					ingredients[i] = new Ingredient(ingredientName, ingredientQuantity, ingredientUnit);
+				}
+				Recipe recipe = this.cookbook.seeRecipe("Saras Recipe");
+				recipe.replaceIngredientSet(ingredients);
 			} else {
 				System.out.println("Please enter command. \"help\" for assistance");
 			}
@@ -181,6 +201,55 @@ public class ProgramMain {
 		}
 	}
 
+	public void edit(Scanner scanner) {
+		boolean tOF = true;
+
+		System.out.println("---EDITING---");
+		System.out.println("Enter name of recipe to edit.");
+
+		while (true) {
+			String userInput = scanner.nextLine();
+			if (this.cookbook.hasRecipe(userInput)) {
+				Recipe recipe = this.cookbook.seeRecipe(userInput);
+				System.out.println("Ingredients, Instructions or Back?");
+				while (tOF) {
+					userInput = scanner.nextLine();
+					if (userInput.equalsIgnoreCase("ingredients") || userInput.equalsIgnoreCase("ing")) {
+						System.out.println("Enter number of ingredients");
+						int numOfIngredients = InputParser.safeInt(scanner);
+						Ingredient[] listOfIngredients = new Ingredient[numOfIngredients];
+						for (int i = 0; i < numOfIngredients; i++) {
+							System.out.println("Enter name of ingredient");
+							String ingredientName = scanner.nextLine();
+							System.out.println("Enter how many " + ingredientName + " are needed");
+							float ingredientQuantity = InputParser.safeInt(scanner);
+							System.out.println("Enter the unit");
+							String ingredientUnit = scanner.nextLine();
+							listOfIngredients[i] = new Ingredient(ingredientName, ingredientQuantity, ingredientUnit);
+						}
+						recipe.replaceIngredientSet(listOfIngredients);
+						tOF = false;
+					} else if (userInput.equalsIgnoreCase("Instructions") || userInput.equalsIgnoreCase("ins")) {
+						System.out.println("Enter the instructions");
+						String instructions = scanner.nextLine();
+						recipe.replaceInstructions(instructions);
+						tOF = false;
+					} else if (userInput.equals("") || userInput.equalsIgnoreCase("back")) {
+						return;
+					} else {
+						System.out.println("Not a valid command");
+					}
+				}
+
+				return;
+			} else if (userInput.length() == 0) {
+				return;
+			} else {
+				System.out.println("Not a recipe. Try again or hit enter to back out.");
+			}
+		}
+	}
+
 	/**
 	 * Lists the current commands of the User Interface.
 	 */
@@ -195,6 +264,8 @@ public class ProgramMain {
 		System.out.println("  |Add     |  Add a Recipe  |");
 		System.out.println("  ---------------------------");
 		System.out.println("  |Fav     |  Open Favorites|");
+		System.out.println("  ---------------------------");
+		System.out.println("  |Edit    |  Edit a Recipe |");
 		System.out.println("  ---------------------------");
 		System.out.println("  |Help    |  Get Help      |");
 		System.out.println("  ---------------------------");

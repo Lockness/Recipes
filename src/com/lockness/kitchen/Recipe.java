@@ -166,8 +166,46 @@ public class Recipe {
 		this.ingredients.put(name, ingredient);
 	}
 
-	public void replaceIngredientSet(TreeMap<String, Ingredient> ingredientList){
-		this.ingredients = ingredientList;
+	public void replaceIngredientSet(Ingredient[] listOfIngredients){
+		int numberOfOldIng = this.numberOfUniqueIngredients();
+		if (this.ingredients.size() != 0) {
+			String filename = this.name.replace(' ', '_') + ".rcp";
+			File file = new File(folder + filename);
+			Scanner inFile;
+			TreeMap<String, Ingredient> ingredients = new TreeMap<String, Ingredient>();
+			try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("TempRecipe"), "UTF-8"))) {
+				inFile = new Scanner(file);
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				for (int i = 0; i < numberOfOldIng; i++) {
+					inFile.nextLine();
+					inFile.nextLine();
+					inFile.nextLine();
+				}
+				for (int i = 0; i < listOfIngredients.length; i++) {
+					writer.write("4 " + listOfIngredients[i].getName() + '\n');
+					writer.write("5 " + listOfIngredients[i].getQuantity() + '\n');
+					writer.write("6 " + listOfIngredients[i].getUnit() + '\n');
+					ingredients.put(listOfIngredients[i].getName(), listOfIngredients[i]);
+				}
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				File tmpFile = new File ("TempRecipe");
+				tmpFile.renameTo(file);
+				this.ingredients = ingredients;
+
+				inFile.close();
+				writer.close();
+			} catch (Exception e) {
+				System.err.println("Could not write to " + filename);
+			}
+		}
+	}
+
+	public void replaceIngredientSet(TreeMap<String, Ingredient> ingredients){
+		this.ingredients = ingredients;
 	}
 
 	boolean containsIngredient(String name) {
