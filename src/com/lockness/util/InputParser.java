@@ -21,7 +21,7 @@ public class InputParser {
 	/**
 	 * Private constructor to stop possible initialization.
 	 */
-	private InputParser() { }
+	private InputParser() {}
 
 	/**
 	 * Turns a '.rcp' file into a Recipe, and returns the it. This only
@@ -62,8 +62,7 @@ public class InputParser {
 					int nextSpace = currentLine.indexOf(' ');
 					time[0] = Integer.parseInt(currentLine.substring(0, nextSpace));
 					currentLine = currentLine.substring(nextSpace + 1);
-					nextSpace = currentLine.indexOf(' ');
-					time[1] = Integer.parseInt(currentLine.substring(0, nextSpace));
+					time[1] = Integer.parseInt(currentLine);
 					time[2] = time[0] + time[1];
 					break;
 				case '4':
@@ -146,7 +145,7 @@ public class InputParser {
 			writer.write("0 " + name + '\n');
 			writer.write("1 " + description + '\n');
 			writer.write("2 " + servingSize + '\n');
-			writer.write("3 " + time[0] + " " + time[1] + " " + time[2] + "\n");
+			writer.write("3 " + time[0] + " " + time[1] + "\n");
 			for (int i = 0; i < numOfIngredients; i++) {
 				writer.write("4 " + listOfIngredients[i].getName() + '\n');
 				writer.write("5 " + listOfIngredients[i].getQuantity() + '\n');

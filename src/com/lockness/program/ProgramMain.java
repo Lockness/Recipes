@@ -86,28 +86,20 @@ public class ProgramMain {
 		for (int i = 0; i < foundRecipes.size(); i++) {
 			System.out.println((i + 1) + " - " + foundRecipes.get(i).getName());
 		}
-		int userSelection;
-		try {
-			userSelection = scanner.nextInt();
-		} catch (Exception e) {
-			System.out.println("Not a int");
-			userSelection = 0;
-		}
-		scanner.nextLine();
-		if (userSelection != 0) {
-			while(true) {
-				if (userSelection > 0 && userSelection <= foundRecipes.size()) {
-					Recipe userRecipe = foundRecipes.get(userSelection - 1);
-					System.out.println(userRecipe.toString());
-					break;
-				} else {
-					System.out.println("Not a valid selection. Try again.");
-					userSelection = scanner.nextInt();
-					scanner.nextLine();
-				}
+		while(true) {
+			int userSelection = InputParser.safeInt(scanner);
+			if (userSelection > 0 && userSelection <= foundRecipes.size()) {
+				Recipe userRecipe = foundRecipes.get(userSelection - 1);
+				System.out.println(userRecipe.toString());
+				return;
+			} else if (userSelection == 0) {
+				return;
+			} else {
+				System.out.println("Not a valid selection. Try again.");
 			}
 		}
 	}
+
 
 	/**
 	 * Lists the recipes already in the cookbook.
@@ -124,6 +116,11 @@ public class ProgramMain {
 		}
 	}
 
+	/**
+	 * Allows user to input new Recipe.
+	 *
+	 * @param scanner
+	 */
 	public void add(Scanner scanner) {
 		String recipeName = InputParser.makeRCP(scanner);
 		this.cookbook.addRecipe(InputParser.parseRCP(recipeName));
@@ -138,27 +135,33 @@ public class ProgramMain {
 	public void favorites(Scanner scanner) {
 		System.out.println("---FAVORITES---");
 		System.out.println("List, Add, or Remove?");
-		String userInput = scanner.nextLine();
-		if (userInput.equalsIgnoreCase("List") || userInput.equalsIgnoreCase("ls")) {
-			this.favorites.listRecipes();
-		} else if (userInput.equalsIgnoreCase("add")) {
-			System.out.println("Which Recipe?");
-			userInput = scanner.nextLine();
-			Recipe recipe = this.cookbook.seeRecipe(userInput);
-			recipe.setFavorite(true);
-			this.favorites.addRecipe(recipe);
-			System.out.println("Added " + userInput + " to favorites");
-		} else if (userInput.equalsIgnoreCase("remove") || userInput.equalsIgnoreCase("rm")) {
-			System.out.println("Which Recipe?");
-			userInput = scanner.nextLine();
-			Recipe recipe = this.cookbook.seeRecipe(userInput);
-			recipe.setFavorite(false);
-			this.favorites.removeRecipe(userInput);
-			System.out.println("Removed " + userInput + " from favorites");
-		} else if (userInput.equals("")) {
-			//Do nothing
-		} else {
-			System.out.println("Not a valid command");
+
+		while (true) {
+			String userInput = scanner.nextLine();
+			if (userInput.equalsIgnoreCase("List") || userInput.equalsIgnoreCase("ls")) {
+				this.favorites.listRecipes();
+				return;
+			} else if (userInput.equalsIgnoreCase("add")) {
+				System.out.println("Which Recipe?");
+				userInput = scanner.nextLine();
+				Recipe recipe = this.cookbook.seeRecipe(userInput);
+				recipe.setFavorite(true);
+				this.favorites.addRecipe(recipe);
+				System.out.println("Added " + userInput + " to favorites");
+				return;
+			} else if (userInput.equalsIgnoreCase("remove") || userInput.equalsIgnoreCase("rm")) {
+				System.out.println("Which Recipe?");
+				userInput = scanner.nextLine();
+				Recipe recipe = this.cookbook.seeRecipe(userInput);
+				recipe.setFavorite(false);
+				this.favorites.removeRecipe(userInput);
+				System.out.println("Removed " + userInput + " from favorites");
+				return;
+			} else if (userInput.equals("")) {
+				return;
+			} else {
+				System.out.println("Not a valid command");
+			}
 		}
 	}
 
@@ -172,6 +175,8 @@ public class ProgramMain {
 		System.out.println("  |Search  |  Find a Recipe |");
 		System.out.println("  ---------------------------");
 		System.out.println("  |List    |  List Recipes  |");
+		System.out.println("  ---------------------------");
+		System.out.println("  |Add     |  Add a Recipe  |");
 		System.out.println("  ---------------------------");
 		System.out.println("  |Fav     |  Open Favorites|");
 		System.out.println("  ---------------------------");
