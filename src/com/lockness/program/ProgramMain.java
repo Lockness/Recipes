@@ -100,7 +100,6 @@ public class ProgramMain {
 		}
 	}
 
-
 	/**
 	 * Lists the recipes already in the cookbook.
 	 *

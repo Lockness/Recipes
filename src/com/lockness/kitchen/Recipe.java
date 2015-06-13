@@ -130,8 +130,35 @@ public class Recipe {
 		return this.instructions;
 	}
 
-	void replaceInstructions(String instructions) {
-		this.instructions = instructions;
+	public void replaceInstructions(String instructions) {
+		if (instructions.length() != 0) {
+			this.instructions = instructions;
+			String filename = this.name.replace(' ', '_') + ".rcp";
+			File file = new File(folder + filename);
+			Scanner inFile;
+			try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("TempRecipe"), "UTF-8"))) {
+				inFile = new Scanner(file);
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				for (int i = 0; i < this.numberOfUniqueIngredients(); i++) {
+					writer.write(inFile.nextLine() + '\n');
+					writer.write(inFile.nextLine() + '\n');
+					writer.write(inFile.nextLine() + '\n');
+				}
+				writer.write("7 " + instructions + '\n');
+				inFile.nextLine();
+				writer.write(inFile.nextLine() + '\n');
+				File tmpFile = new File ("TempRecipe");
+				tmpFile.renameTo(file);
+
+				inFile.close();
+				writer.close();
+			} catch (Exception e) {
+				System.err.println("Could not write to " + filename);
+			}
+		}
 	}
 
 	void addIngredient(String name, float quantity, String unit) {

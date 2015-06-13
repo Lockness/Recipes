@@ -14,7 +14,6 @@ import com.lockness.kitchen.Recipe;
 
 /**
  * @author Justin Carruthers
- * @author Ryan Tomlinson
  */
 public class InputParser {
 
