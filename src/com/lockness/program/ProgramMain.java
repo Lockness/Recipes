@@ -40,9 +40,9 @@ public class ProgramMain {
 	}
 
 	void welcome() {
-		System.out.println("//--------------------------\\\\");
-		System.out.println("|| Welcome to CollegeCooks! ||");
-		System.out.println("\\\\--------------------------//\n");
+		System.out.println("//------------------------------\\");
+		System.out.println("|| Welcome to Midterm Munchies! ||");
+		System.out.println("\\------------------------------//\n");
 	}
 
 	void userInterface() {
