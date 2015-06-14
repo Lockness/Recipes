@@ -174,6 +174,9 @@ public class InputParser {
 
 	public static int safeInt(Scanner input) {
 		String userInput = input.nextLine();
+		if (userInput.length() == 0) {
+			return -1;
+		}
 		while (true) {
 			if(tryParseInt(userInput)) {
 				return Integer.parseInt(userInput);

@@ -130,6 +130,11 @@ public class Cookbook {
 		return this.recipeList.containsKey(name);
 	}
 
+	public void editName(String oldName, String newName) {
+		Recipe recipe = this.recipeList.remove(oldName);
+		this.recipeList.put(newName, recipe);
+	}
+
 	@Override
 	public String toString() {
 		String returnMe = "";

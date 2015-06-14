@@ -69,21 +69,6 @@ public class ProgramMain {
 				this.options();
 			} else if (userInput.equalsIgnoreCase("exit") || userInput.equalsIgnoreCase("quit")) {
 				loop = false;
-			} else if (userInput.equals("debug")) {
-				System.out.println("How many ingredients?");
-				int newNumber = InputParser.safeInt(scanner);
-				Ingredient[] ingredients = new Ingredient[newNumber];
-				for (int i = 0; i < newNumber; i++) {
-					System.out.println("Enter name of ingredient");
-					ingredientName = scanner.nextLine();
-					System.out.println("Enter how many " + ingredientName + " are needed");
-					ingredientQuantity = InputParser.safeInt(scanner);
-					System.out.println("Enter the unit");
-					ingredientUnit = scanner.nextLine();
-					ingredients[i] = new Ingredient(ingredientName, ingredientQuantity, ingredientUnit);
-				}
-				Recipe recipe = this.cookbook.seeRecipe("Saras Recipe");
-				recipe.replaceIngredientSet(ingredients);
 			} else {
 				System.out.println("Please enter command. \"help\" for assistance");
 			}
@@ -211,7 +196,8 @@ public class ProgramMain {
 			String userInput = scanner.nextLine();
 			if (this.cookbook.hasRecipe(userInput)) {
 				Recipe recipe = this.cookbook.seeRecipe(userInput);
-				System.out.println("Ingredients, Instructions or Back?");
+				System.out.println("What to edit?");
+				System.out.println("Name, Instructions, Ingredients, Cook Time, Prep Time or Back?");
 				while (tOF) {
 					userInput = scanner.nextLine();
 					if (userInput.equalsIgnoreCase("ingredients") || userInput.equalsIgnoreCase("ing")) {
@@ -229,6 +215,29 @@ public class ProgramMain {
 						}
 						recipe.replaceIngredientSet(listOfIngredients);
 						tOF = false;
+					} else if (userInput.equalsIgnoreCase("name") || userInput.equalsIgnoreCase("n")) {
+						System.out.println("Enter the name");
+						userInput= scanner.nextLine();
+						if (userInput.length() != 0 && !userInput.equalsIgnoreCase(recipe.getName())) {
+							String oldName = recipe.getName();
+							recipe.rename(userInput);
+							this.cookbook.editName(oldName, userInput);
+							tOF = false;
+						}
+					} else if (userInput.equalsIgnoreCase("Prep Time") || userInput.equalsIgnoreCase("pt")) {
+						System.out.println("Enter the Prep Time");
+						int prepTime = InputParser.safeInt(scanner);
+						if (prepTime != -1) {
+							recipe.updateCookAndPrepTime(prepTime, true);
+							tOF = false;
+						}
+					} else if (userInput.equalsIgnoreCase("Cook Time") || userInput.equalsIgnoreCase("ct")) {
+						System.out.println("Enter the Cook Time");
+						int cookTime = InputParser.safeInt(scanner);
+						if (cookTime != -1) {
+							recipe.updateCookAndPrepTime(cookTime, false);
+							tOF = false;
+						}
 					} else if (userInput.equalsIgnoreCase("Instructions") || userInput.equalsIgnoreCase("ins")) {
 						System.out.println("Enter the instructions");
 						String instructions = scanner.nextLine();

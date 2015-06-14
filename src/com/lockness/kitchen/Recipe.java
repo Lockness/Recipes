@@ -82,51 +82,100 @@ public class Recipe {
 		return this.name;
 	}
 
-	void rename (String name) {
-		this.name = name;
+	public void rename (String name) {
+		String filename = this.name.replace(' ', '_') + ".rcp";
+		File file = new File(folder + filename);
+		Scanner inFile;
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("TempRecipe"), "UTF-8"))) {
+			this.name = name;
+			inFile = new Scanner(file);
+			writer.write("0 " + name + '\n');
+			inFile.nextLine();
+			writer.write(inFile.nextLine() + '\n');
+			writer.write(inFile.nextLine() + '\n');
+			writer.write(inFile.nextLine() + '\n');
+			for (int i = 0; i < this.numberOfUniqueIngredients(); i++) {
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+			}
+			writer.write(inFile.nextLine() + '\n');
+			writer.write(inFile.nextLine() + '\n');
+			File tmpFile = new File ("TempRecipe");
+			file.delete();
+			file = new File(folder + name.replace(' ', '_') + ".rcp");
+			tmpFile.renameTo(file);
+
+			inFile.close();
+			writer.close();
+		} catch (Exception e) {
+			System.err.println("Could not write to " + filename);
+		}
 	}
 
-	String getDescription() {
+	public String getDescription() {
 		return this.description;
 	}
 
-	void replaceDescription(String description) {
+	public void replaceDescription(String description) {
 		this.description = description;
 	}
 
-	int getServingSize() {
+	public int getServingSize() {
 		return this.servingSize;
 	}
 
-	void updateServingSize(int servingSize) {
+	public void updateServingSize(int servingSize) {
 		this.servingSize = servingSize;
 	}
 
-	int getPrepTime() {
+	public int getPrepTime() {
 		return this.time[0];
 	}
 
-	void updatePrepTime(int prep) {
-		this.time[0] = prep;
-	}
-
-	int getCookTime() {
+	public int getCookTime() {
 		return this.time[1];
 	}
 
-	void updateCookTime(int cook) {
-		this.time[1] = cook;
+	public void updateCookAndPrepTime(int time, boolean prep) {
+		if (prep) {
+			this.time[0] = time;
+		} else {
+			this.time[1] = time;
+		}
+		this.time[2] = this.time[0] + this.time[1];
+		String filename = this.name.replace(' ', '_') + ".rcp";
+		File file = new File(folder + filename);
+		Scanner inFile;
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("TempRecipe"), "UTF-8"))) {
+			inFile = new Scanner(file);
+			writer.write(inFile.nextLine() + '\n');
+			writer.write(inFile.nextLine() + '\n');
+			writer.write(inFile.nextLine() + '\n');
+			writer.write("3 " + this.time[0] + " " + this.time[1] + '\n');
+			inFile.nextLine();
+			for (int i = 0; i < this.numberOfUniqueIngredients(); i++) {
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+			}
+			writer.write(inFile.nextLine() + '\n');
+			writer.write(inFile.nextLine() + '\n');
+			File tmpFile = new File ("TempRecipe");
+			tmpFile.renameTo(file);
+
+			inFile.close();
+			writer.close();
+		} catch (Exception e) {
+			System.err.println("Could not write to " + filename);
+		}
 	}
 
-	int getReadyTime() {
+	public int getReadyTime() {
 		return this.time[2];
 	}
 
-	void updateReadyTime(int ready) {
-		this.time[2] = ready;
-	}
-
-	String getInstructions() {
+	public String getInstructions() {
 		return this.instructions;
 	}
 
@@ -161,7 +210,7 @@ public class Recipe {
 		}
 	}
 
-	void addIngredient(String name, float quantity, String unit) {
+	public void addIngredient(String name, float quantity, String unit) {
 		Ingredient ingredient = new Ingredient(name, quantity, unit);
 		this.ingredients.put(name, ingredient);
 	}
@@ -208,7 +257,7 @@ public class Recipe {
 		this.ingredients = ingredients;
 	}
 
-	boolean containsIngredient(String name) {
+	public boolean containsIngredient(String name) {
 		return this.ingredients.containsKey(name);
 	}
 
@@ -256,11 +305,11 @@ public class Recipe {
 	 * Instance Methods
 	 */
 
-	int numberOfUniqueIngredients() {
+	public int numberOfUniqueIngredients() {
 		return this.ingredients.size();
 	}
 
-	void editIngredientQuantity(String name, float newQuantity) {
+	public void editIngredientQuantity(String name, float newQuantity) {
 		Ingredient ingredient = this.ingredients.remove(name);
 		ingredient.setQuantity(newQuantity);
 		this.ingredients.put(name, ingredient);
