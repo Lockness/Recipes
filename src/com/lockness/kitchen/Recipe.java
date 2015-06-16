@@ -118,7 +118,34 @@ public class Recipe {
 	}
 
 	public void replaceDescription(String description) {
-		this.description = description;
+		if (description.length() != 0) {
+			this.description = description;
+			String filename = this.name.replace(' ', '_') + ".rcp";
+			File file = new File(folder + filename);
+			Scanner inFile;
+			try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("TempRecipe"), "UTF-8"))) {
+				inFile = new Scanner(file);
+				writer.write(inFile.nextLine() + '\n');
+				writer.write("1 " + description + '\n');
+				inFile.nextLine();
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				for (int i = 0; i < this.numberOfUniqueIngredients(); i++) {
+					writer.write(inFile.nextLine() + '\n');
+					writer.write(inFile.nextLine() + '\n');
+					writer.write(inFile.nextLine() + '\n');
+				}
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				File tmpFile = new File ("TempRecipe");
+				tmpFile.renameTo(file);
+
+				inFile.close();
+				writer.close();
+			} catch (Exception e) {
+				System.err.println("Could not write to " + filename);
+			}
+		}
 	}
 
 	public int getServingSize() {
@@ -127,6 +154,31 @@ public class Recipe {
 
 	public void updateServingSize(int servingSize) {
 		this.servingSize = servingSize;
+		String filename = this.name.replace(' ', '_') + ".rcp";
+		File file = new File(folder + filename);
+		Scanner inFile;
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("TempRecipe"), "UTF-8"))) {
+			inFile = new Scanner(file);
+			writer.write(inFile.nextLine() + '\n');
+			writer.write(inFile.nextLine() + '\n');
+			writer.write("2 " + servingSize + '\n');
+			inFile.nextLine();
+			writer.write(inFile.nextLine() + '\n');
+			for (int i = 0; i < this.numberOfUniqueIngredients(); i++) {
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+				writer.write(inFile.nextLine() + '\n');
+			}
+			writer.write(inFile.nextLine() + '\n');
+			writer.write(inFile.nextLine() + '\n');
+			File tmpFile = new File ("TempRecipe");
+			tmpFile.renameTo(file);
+
+			inFile.close();
+			writer.close();
+		} catch (Exception e) {
+			System.err.println("Could not write to " + filename);
+		}
 	}
 
 	public int getPrepTime() {
